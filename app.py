@@ -108,3 +108,41 @@ def update_loan(loan_id):
 @app.route('/loans/<loan_id>', methods = ["DELETE"])
 def delete_loan(loan_id):
     return jsonify(loan_controller.delete_entity(loan_id))
+
+
+#------------------------ HEDGES ENDPOINTS ------------------------------    
+# Use this json to test the account endpoints using Postman
+#   "value" is a reserved key word so change it to "hedge_value"
+# {
+#     "hedge_id": "H001",
+#     "asset": "Bitcoin",
+#     "value": "1000",
+#     "default_instrument": "XBTUSD",
+#     "current_instrument": "XBTUSD", 
+#     "close_date": "2019-11-27 14:09:01.772253",
+#     "rollover_date": "2019-12-27 14:09:01.772253",
+#     "active": "true",
+#     "account_id": "A001",
+#     "funding_rate_history": "none"
+# }
+# 
+
+@app.route('/hedges', methods=["GET"])
+def get_hedges():
+    return jsonify(hedge_controller.get_entities())
+
+@app.route('/hedges/<hedge_id>', methods=["GET"])
+def get_hedge_by_id(hedge_id):
+    return jsonify(hedge_controller.get_entity(hedge_id))
+
+@app.route('/hedges', methods=["POST"])
+def create_hedge():
+    return jsonify(hedge_controller.create_entity(request.json))
+
+@app.route('/hedges/<hedge_id>', methods = ["PUT"])
+def update_hedge(hedge_id):
+    return jsonify(hedge_controller.update_entity(request.json))
+
+@app.route('/hedges/<hedge_id>', methods = ["DELETE"])
+def delete_hedge(hedge_id):
+    return jsonify(hedge_controller.delete_entity(hedge_id))
