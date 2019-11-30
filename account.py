@@ -6,8 +6,11 @@ import requests
 import poloniex
 import bitmex
 import json
+<<<<<<< HEAD
 from hedge import Hedge
 from loan import Loan
+=======
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
 
 
 class Account:
@@ -27,6 +30,7 @@ class Account:
     """
     LOCAL_CURRENCY = "AUD"
 
+<<<<<<< HEAD
     """ BlockFi is a digital asset lender offering BTC, ETH and other assets.
         BlockFi was our first choice, but we were unable to get ID-verified and
         intergrate with their platform in time for this event. BlockFi would
@@ -50,6 +54,8 @@ class Account:
         a miunimum duration of 2 days, and interest calculated daily.
     """
 
+=======
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
     # Lending platform
     LOAN_PROVIDER = "Poloniex"
 
@@ -68,6 +74,7 @@ class Account:
 
     # Lending platform API client
     LENDER_API = poloniex.Poloniex(
+<<<<<<< HEAD
         key='HHDRON6N-H7C3LA42-AXV8EMJI-LPLUQD2Y',
         secret="c05289ca176fc5981118756accc84172a513609df14b8fa887"
             "cf6cf980292f724efbacd5fcd925f810cfaf71c0edfff31a4d0cfc"
@@ -104,6 +111,13 @@ class Account:
 
     # As described below, this demo uses USDC, an asset not requiring hedging,
     # however hedging is implemented, working and will be demonstrated.
+=======
+        key='',
+        secret=""
+            ""
+            "")
+
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
     HEDGE_REQUIRED = False
 
     # Hedging platform
@@ -112,10 +126,17 @@ class Account:
     # Hedging platform API client
     HEDGE_API = bitmex.bitmex(
         test=False,
+<<<<<<< HEAD
         api_key='TsClPuXtKz8Yxtf5EPkNL0hV',
         api_secret='fFDYVqQl59Uku_1u8HFOnHHIXz1Tq5IM0H4wQIumgh-vvfun')
 
     def __init__(self, logger, account_id, duration=365, initial_deposit=50):
+=======
+        api_key='',
+        api_secret='')
+
+    def __init__(self, logger, account_id, duration=365, initial_deposit=100):
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
         self.logger = logger
 
         # Unique account identifier
@@ -157,16 +178,26 @@ class Account:
         # Hedge class for the hedge against our loaned asset.
         self.hedge = None
 
+<<<<<<< HEAD
     def open_account(self):
+=======
+    def open_account(): 
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
         """ Initiate the loan and hedge. This method must be invoked to start
             the account after the account objcet has been created.
         """
 
         self.convert_currency()
+<<<<<<< HEAD
         # Make a $50 loan for 2 days
         self.loan = self.init_loan()
         self.hedge = self.init_hedge()
         self.hedge.terminate_hedge()
+=======
+        # self.loan = init_loan()
+        self.hedge = init_hedge()
+        
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
 
     def init_loan(self):
         """ Open a loan with third party lending platform. We use Poloniex
@@ -177,6 +208,7 @@ class Account:
             auto-renew off on active loans, and creates new loan offers at
             fair price (fair = average of the lowest three loan offers).
             """
+<<<<<<< HEAD
         #Loan(logger, api, asset, deposit, duration, agent)
         return Loan(
             self.logger,
@@ -210,6 +242,21 @@ class Account:
         print(hedge)
 
         return hedge
+=======
+
+        # return Loan(
+        #     self.LENDER_API,
+        #     self.logger,
+        #     self.LOAN_ASSET,
+        #     self.initial_deposit,
+        #     self.duration,
+        #     LoanAgent(
+        #         self.logger,
+        #         self.LENDER_API,
+        #         {self.LOAN_ASSET: self.MIN_LOAN},
+        #         self.initial_deposit))    
+
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
 
     def get_lending_stats(self):
         """ Return dict of loan stats, set current_interst_rate variable
@@ -227,14 +274,21 @@ class Account:
         # use stats['currentQty'] to get the size of the positon
         stats = self.hedge.api.Position.Position_get(
             filter=json.dumps(
+<<<<<<< HEAD
                 {'symbol': self.hedge.current_instrument})).result()[0][0]
         return stats
+=======
+                {'symbol': self.current_instrument})).result()[0][0]
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
 
     def get_avg_interest_rate(self):
         """ Return the average interest rate to date for the loaned asset."""
 
     def convert_currency(self):
+<<<<<<< HEAD
         #Don't worry about this
+=======
+>>>>>>> f5513a389acdf96df6581987ae4d41853a9cd33b
         """ Convert deposited local currency to the target asset.
             Note that this functionality is not implemented for the demo app,
             we pre-converted our local currency to the target loan asset for

@@ -1,11 +1,11 @@
 from time import time, sleep, strptime
+from datetime import datetime, timedelta
 import requests
-import datetime
 import logging
-
+import json
 
 class Hedge:
-    """	Hedge class models the hedge taken to mitigate loan volatility. """
+    """Hedge class models the hedge taken to mitigate loan volatility."""
 
     """ Industry-standard monthly futures contract codes. The month code
         signifies contract delivery month e.g AUDJPYZ19 would be a contract
@@ -15,7 +15,7 @@ class Hedge:
         'F': 'Jan', 'G': 'Feb', 'H': 'Mar', 'J': 'Apr', 'K': 'mar', 'M': 'Jun',
         'N': 'Jul', 'Q': 'Aug', 'U': 'Sep', 'V': 'Oct', 'X': 'Nov', 'Z': 'Dec'}
 
-	def __init__(self, logger, api, asset, value, duration):
+    def __init__(self, logger, api, asset, value, duration):
         self.logger = logger
         self.api = api
 
@@ -44,11 +44,11 @@ class Hedge:
         """Open a hedge (short positon) with the specified instrument, default
         is perpetual swap contact."""
 
-        order = api.Order.Order_new(
+        order = self.api.Order.Order_new(
             symbol=self.current_instrument,
             orderQty=(self.value * -1)).result()
 
-        print("Hedge opened for " + self.value + " contracts.")
+        print("Hedge opened for " + str(self.value) + " contracts.")
         self.active = True
 
         # Return transaction details json
@@ -59,30 +59,30 @@ class Hedge:
         details of the closed positon. Hedge cLosure effective immediately."""
 
         # Close all positions
-        result = api.Order.Order_new(
+        result = self.api.Order.Order_new(
             symbol=self.current_instrument,
             ordType='Market',
             execInst='Close').result()
 
-        print("Hedge closed for " + result[0]['orderQty'] + " contracts.")
+        print("Hedge closed for " + str(result[0]['orderQty']) + " contracts.")
         self.active = False
 
         # Return transaction details json
         return result
 
-	def update_hedge_size(self, amount):
+    def update_hedge_size(self, amount):
         """Adjust total size of hedge to match provided amount."""
 
         # Get size of existing postion
-        position = api.Position.Position_get(
+        positions = self.api.Position.Position_get(
             filter=json.dumps({'symbol': self.current_instrument})).result()
 
         # Update position to match new amount
         val = positions[0][0]['currentQty']
         new_val = (amount * -1) - val
-        order = api.Order.Order_new(
+        order = self.api.Order.Order_new(
             symbol=self.current_instrument,
-            orderQty=(self.new_val * -1)).result()
+            orderQty=(new_val * -1)).result()
 
         # Return transaction details json
         return order
