@@ -183,3 +183,20 @@ class EntityController:
                 self.PRIMARY_KEY: entity_id,
             }
         )
+
+    def delete_entities(self):
+        """
+        Delete all existing entities in the table.
+        Parameter:
+            none
+        Return:
+            metadata of the DELETE request
+        """
+        scan = self.table.scan()
+        with self.table.batch_writer() as batch:
+            for item in scan['Items']:
+                batch.delete_item(
+                    Key={
+                        self.PRIMARY_KEY: item[self.PRIMARY_KEY],
+                    }
+                )
