@@ -200,3 +200,28 @@ class EntityController:
                         self.PRIMARY_KEY: item[self.PRIMARY_KEY],
                     }
                 )
+
+    def delete_selective_entities(self, query):
+        """
+        Delete all existing entities that match a given query.
+        Parameter:
+            a string id query
+        Return:
+            metadata of the DELETE request
+        """
+
+        response = self.table.scan(
+            FilterExpression=Attr(self.SORT_KEY).eq(query)
+        )
+        if 'Items' not in response:
+            return "No result found related to query " + query
+
+        for item in response['Items']:
+            self.table.delete_item(
+                Key={
+                    self.PRIMARY_KEY: item[self.PRIMARY_KEY],
+                    self.SORT_KEY: item[self.SORT_KEY],
+                }
+            )
+
+    
