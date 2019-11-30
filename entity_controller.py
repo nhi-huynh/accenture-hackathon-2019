@@ -96,6 +96,8 @@ class EntityController:
         )
 
     def query_entities(self, query):
+        """Return all entities that match the given query"""
+
         response = self.table.scan(
             FilterExpression=Attr(self.SORT_KEY).eq(query)
         )
@@ -136,3 +138,34 @@ class EntityController:
         return self.table.put_item(
             Item= new_entity
             )
+
+    def update_entity(self, updated_entity):
+        """
+        Update an existing entity from the json received.
+        Parameter:
+            a dictionary of the entity with updated information.
+        Return:
+            metadata of the PUT request
+        """
+        
+        updated_values = {}
+        key_attributes = {}
+        key_attributes[self.PRIMARY_KEY] = updated_entity[self.PRIMARY_KEY]
+        command = 'SET '
+
+        for key in updated_entity:      
+            if key != self.PRIMARY_KEY:
+                new_key = ":new_" + key
+                updated_values[new_key] = updated_entity[key]
+                command += key + ' = ' + new_key + ','
+
+        command = command[:-1]      #slice the last comma
+        print(updated_entity)
+        print(command)
+        print(updated_values)
+
+        return self.table.update_item(
+            Key=key_attributes,
+            UpdateExpression=command,      
+            ExpressionAttributeValues=updated_values
+        )
