@@ -69,3 +69,37 @@ class Hedge:
 
         # Return transaction details json
         return result
+
+	def update_hedge_size(self, amount):
+        """Adjust total size of hedge to match provided amount."""
+
+        # Get size of existing postion
+        position = api.Position.Position_get(
+            filter=json.dumps({'symbol': self.current_instrument})).result()
+
+        # Update position to match new amount
+        val = positions[0][0]['currentQty']
+        new_val = (amount * -1) - val
+        order = api.Order.Order_new(
+            symbol=self.current_instrument,
+            orderQty=(self.new_val * -1)).result()
+
+        # Return transaction details json
+        return order
+
+    def close_date(self, duration):
+        """Return the date [duration] days from now."""
+
+        close = datetime.utcnow() + timedelta(days=10)
+        close = close.replace(microsecond=0, second=0, minute=0, hour=0)
+        return close
+
+    def rollover_instrument(self, new_instr):
+        """Incrementally close the current hedge and re-initiate it in a
+        new instrument."""
+
+    def get_quarterly_future(self, asset):
+        """Return the appropriate contract code for quarterly futures."""
+
+    def get_biannual_future(self, asset):
+        """Return the appropriate contract code for quarterly futures."""

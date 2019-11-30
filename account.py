@@ -97,7 +97,7 @@ class Account:
         """
 
         self.convert_currency()
-        self.loan = init_loan()
+        # self.loan = init_loan()
         self.hedge = init_hedge()
         
 
@@ -111,17 +111,17 @@ class Account:
             fair price (fair = average of the lowest three loan offers).
             """
 
-        return Loan(
-            self.LENDER_API,
-            self.logger,
-            self.LOAN_ASSET,
-            self.initial_deposit,
-            self.duration,
-            LoanAgent(
-                self.logger,
-                self.LENDER_API,
-                {self.LOAN_ASSET: self.MIN_LOAN},
-                self.initial_deposit))    
+        # return Loan(
+        #     self.LENDER_API,
+        #     self.logger,
+        #     self.LOAN_ASSET,
+        #     self.initial_deposit,
+        #     self.duration,
+        #     LoanAgent(
+        #         self.logger,
+        #         self.LENDER_API,
+        #         {self.LOAN_ASSET: self.MIN_LOAN},
+        #         self.initial_deposit))    
 
 
     def get_lending_stats(self):
