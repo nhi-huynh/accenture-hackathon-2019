@@ -94,3 +94,12 @@ class EntityController:
         return self.dynamo_client.scan(
             TableName=self.TABLE_NAME
         )
+
+    def query_entities(self, query):
+        response = self.table.scan(
+            FilterExpression=Attr(self.SORT_KEY).eq(query)
+        )
+        if 'Items' in response:
+            return response['Items']
+        else:
+            return "No result found related to query " + query
