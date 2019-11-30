@@ -23,5 +23,69 @@ class EntityController:
             #Lazy load the table
             self.table = self.dynamodb.Table(self.TABLE_NAME) 
 
+    def create_table(self, sample_data=None):
+        """
+        Create the DynamoDB table.
+        """
+        
+        # Define key schema
+        key_schema = []
+        
+        key_schema.append({
+                            'AttributeName': self.PRIMARY_KEY,
+                            'KeyType': 'HASH'
+                        })
+
+        # Define attribute definitions
+        attribute_defs = [{
+                            'AttributeName': self.PRIMARY_KEY,
+                            'AttributeType': 'S'
+                        }]
+
+        if self.SORT_KEY:
+            key_schema.append({
+                    'AttributeName': self.SORT_KEY,
+                    'KeyType': 'RANGE'
+                })
+
+            attribute_defs.append({
+                    'AttributeName': self.SORT_KEY,
+                    'AttributeType': 'S'
+                })
+        
+
+        
+        # Create the table based on the key schema and attribute definitions
+        self.table = self.dynamodb.create_table(
+            TableName=self.TABLE_NAME,
+            KeySchema=key_schema,
+            AttributeDefinitions=attribute_defs,
+            ProvisionedThroughput={
+                'ReadCapacityUnits': 5,
+                'WriteCapacityUnits': 5
+            }
+        )
+
+        # Wait until the table exists.
+        self.table.meta.client.get_waiter('table_exists').wait(TableName=self.TABLE_NAME)
+
+        # Write some sample data to the table if the sample data is not None
+        if sample_data:
+            self.table.put_item(
+                Item=sample_data
+            # Item={
+            #         "user_id": "U001",
+            #         "first_name": "Nhi",
+            #         "last_name": "Huynh",
+            #         "email": "nhi.huynh@gmail.com",
+            #         "password_hash": "password", 
+            #         "account_id": "A001"
+            #     }
+            )
+
+        # Print out some data about the table.
+        print("Table " + self.TABLE_NAME + " has " + str(self.table.item_count) + " item count.")
+        
+
         
     
