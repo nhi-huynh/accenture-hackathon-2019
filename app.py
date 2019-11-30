@@ -59,14 +59,52 @@ def get_users():
 def get_user_by_id(user_id):
     return jsonify(user_controller.get_entity(user_id))
 
-# @app.route('/users', methods=["POST"])
-# def create_user():
-#     return jsonify(user_controller.create_entity(request.json))
+@app.route('/users', methods=["POST"])
+def create_user():
+    return jsonify(user_controller.create_entity(request.json))
 
-# @app.route('/users/<user_id>', methods = ["PUT"])
-# def update_user(user_id):
-#     return jsonify(user_controller.update_entity(request.json))
+@app.route('/users/<user_id>', methods = ["PUT"])
+def update_user(user_id):
+    return jsonify(user_controller.update_entity(request.json))
 
-# @app.route('/users/<user_id>', methods = ["DELETE"])
-# def delete_user(user_id):
-#     return jsonify(user_controller.delete_entity(user_id))
+@app.route('/users/<user_id>', methods = ["DELETE"])
+def delete_user(user_id):
+    return jsonify(user_controller.delete_entity(user_id))
+
+
+
+#------------------------ LOANS ENDPOINTS ------------------------------    
+# Use this json to test the account endpoints using Postman
+#   "total" is a reserved key word so change it to "total_loan"
+# {
+#     "loan_id": "L001",
+#     "asset": "Bitcoin",
+#     "total_loan": "1000",
+#     "current_price": "7000",
+#     "current_interest_rate": "10", 
+#     "close_date": "2019-11-27 14:09:01.772253",
+#     "active": "true",
+#     "account_id": "A001",
+#     "interest_rate_history": ""
+# }
+# 
+
+@app.route('/loans', methods=["GET"])
+def get_loans():
+    return jsonify(loan_controller.get_entities())
+
+@app.route('/loans/<loan_id>', methods=["GET"])
+def get_loan_by_id(loan_id):
+    return jsonify(loan_controller.get_entity(loan_id))
+
+@app.route('/loans', methods=["POST"])
+def create_loan():
+    return jsonify(loan_controller.create_entity(request.json))
+
+@app.route('/loans/<loan_id>', methods = ["PUT"])
+def update_loan(loan_id):
+    return jsonify(loan_controller.update_entity(request.json))
+
+@app.route('/loans/<loan_id>', methods = ["DELETE"])
+def delete_loan(loan_id):
+    return jsonify(loan_controller.delete_entity(loan_id))
