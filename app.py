@@ -146,3 +146,35 @@ def update_hedge(hedge_id):
 @app.route('/hedges/<hedge_id>', methods = ["DELETE"])
 def delete_hedge(hedge_id):
     return jsonify(hedge_controller.delete_entity(hedge_id))
+
+
+#------------------------ BALANCES ENDPOINTS ------------------------------    
+# Use this json to test the account endpoints using Postman
+#   "value" is a reserved key word so change it to "balances_value"
+# {
+#     "timestamp": "2019-11-27 14:09:01.772253",
+#     "account_id": "A001",
+#     "balance": "1000"
+# }
+# 
+
+@app.route('/balances', methods=["GET"])
+def get_balances():
+    return jsonify(balance_controller.get_entities())
+
+@app.route('/balances/<account_id>', methods=["GET"])
+def get_balances_by_id(account_id):
+    return jsonify(balance_controller.query_entities(account_id))
+
+@app.route('/balances', methods=["POST"])
+def create_balances():
+    return jsonify(balance_controller.create_entity(request.json))
+
+@app.route('/balances/<account_id>', methods=["DELETE"])
+def delete_balances_by_id(account_id):
+    return jsonify(balance_controller.delete_selective_entities(account_id))
+
+@app.route('/balances', methods=["DELETE"])
+def delete_balances():
+    return jsonify(balance_controller.delete_entities())
+
