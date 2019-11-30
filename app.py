@@ -23,8 +23,7 @@ loan_interest_controller = EntityController("Loan_interests", "timestamp", "acco
 funding_rate_controller = EntityController("Funding_rates", "timestamp", "account_id")
 
 
-#------------------------ INDEX ENDPOINTS ------------------------------  
-
+#------------------------ INDEX ENDPOINTS ------------------------------
 @app.route('/')
 def index():
     return "API for the DeFiBank app"
@@ -72,7 +71,6 @@ def update_user(user_id):
 @app.route('/users/<user_id>', methods = ["DELETE"])
 def delete_user(user_id):
     return jsonify(user_controller.delete_entity(user_id))
-
 
 
 #------------------------ ACCOUNTS ENDPOINTS ------------------------------    
@@ -192,6 +190,8 @@ def delete_hedge(hedge_id):
     return jsonify(hedge_controller.delete_entity(hedge_id))
 
 
+
+
 #------------------------ BALANCES ENDPOINTS ------------------------------    
 # Use this json to test the account endpoints using Postman
 #   "value" is a reserved key word so change it to "balances_value"
@@ -283,7 +283,6 @@ def delete_loan_interests_by_id(account_id):
 @app.route('/loan_interests', methods=["DELETE"])
 def delete_loan_interests():
     return jsonify(loan_interest_controller.delete_entities())
-
 
 
 
