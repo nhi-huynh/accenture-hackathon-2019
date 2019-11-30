@@ -87,5 +87,10 @@ class EntityController:
         print("Table " + self.TABLE_NAME + " has " + str(self.table.item_count) + " item count.")
         
 
-        
-    
+    def get_entities(self):
+        "Get all entities in the table"
+
+        #Run a scan of the table name to return the entire table
+        return self.dynamo_client.scan(
+            TableName=self.TABLE_NAME
+        )
