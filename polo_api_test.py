@@ -35,14 +35,9 @@ LOAN_ASSET = "USDC"
 MIN_LOAN = 50
 
 POLO_API = poloniex.Poloniex(
-    key='HHDRON6N-H7C3LA42-AXV8EMJI-LPLUQD2Y',
-    secret="c05289ca176fc5981118756accc84172a513609df14b8fa887"
-        "cf6cf980292f724efbacd5fcd925f810cfaf71c0edfff31a4d0cfc"
-        "1e41ea23a1a3cad1706d5c44")
+    key="",
+    secret="")
 
-# api_key='HHDRON6N-H7C3LA42-AXV8EMJI-LPLUQD2Y'
-# api_secret="c05289ca176fc5981118756accc84172a513609df14b8fa887cf6cf980292f724efbacd5fcd925f810cfaf71c0edfff31a4d0cfc1e41ea23a1a3cad1706d5c44"
-# POLO_API = Poloniex(api_key, api_secret)
 
 PUBLIC_COMMANDS = [
     'returnTicker',
