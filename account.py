@@ -141,3 +141,15 @@ class Account:
         stats = self.hedge.api.Position.Position_get(
             filter=json.dumps(
                 {'symbol': self.current_instrument})).result()[0][0]
+
+    def get_avg_interest_rate(self):
+        """ Return the average interest rate to date for the loaned asset."""
+
+    def convert_currency(self):
+        """ Convert deposited local currency to the target asset.
+            Note that this functionality is not implemented for the demo app,
+            we pre-converted our local currency to the target loan asset for
+            speed and convenience (USDC being the loan asset).
+            A full implementation of this app will require integration with a
+            third party currency broker.
+        """
