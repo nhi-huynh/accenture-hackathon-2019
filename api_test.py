@@ -2,6 +2,7 @@ import poloniex
 import requests
 import datetime
 
+#Dont worry about this
 
 PUBLIC_COMMANDS = [
     'returnTicker',
@@ -44,4 +45,4 @@ PRIVATE_COMMANDS = [
     'getMarginPosition',
     'closeMarginPosition']
 
-print(polo.returnBalances())
+# print(polo.returnBalances())
