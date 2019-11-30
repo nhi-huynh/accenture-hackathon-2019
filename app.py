@@ -22,11 +22,13 @@ loan_interest_controller = EntityController("Loan_interests", "timestamp", "acco
 # A controller to the funding rates of the account
 funding_rate_controller = EntityController("Funding_rates", "timestamp", "account_id")
 
+
 #------------------------ INDEX ENDPOINTS ------------------------------  
 
 @app.route('/')
 def index():
     return "API for the DeFiBank app"
+
 
 #------------------------ USERS ENDPOINTS ------------------------------        
 # Use this json to test the user endpoints using Postman
@@ -73,6 +75,47 @@ def delete_user(user_id):
 
 
 
+#------------------------ ACCOUNTS ENDPOINTS ------------------------------    
+# Use this json to test the account endpoints using Postman
+# {
+#     "account_id": "A001",
+#     "duration": "365",
+#     "initial_deposit": "1000",
+#     "current_balance": "1000",
+#     "current_interest_rate": "10", 
+#     "avg_interest_rate": "8.5",
+#     "interest_paid_to_date": "0",
+#     "hedge_id": "H001",
+#     "loan_id": "L001",
+#     "user_id": "U001",
+#     "account_balance_history": "none"
+#     "net_interest_history": "none"
+# }
+# 
+
+@app.route('/accounts', methods=["GET"])
+def get_accounts():
+    return jsonify(account_controller.get_entities())
+
+@app.route('/accounts/<account_id>', methods=["GET"])
+def get_account_by_id(account_id):
+    return jsonify(account_controller.get_entity(account_id))
+
+@app.route('/accounts', methods=["POST"])
+def create_account():
+    return jsonify(account_controller.create_entity(request.json))
+
+@app.route('/accounts/<account_id>', methods = ["PUT"])
+def update_account(account_id):
+    return jsonify(account_controller.update_entity(request.json))
+
+@app.route('/accounts/<account_id>', methods = ["DELETE"])
+def delete_account(account_id):
+    return jsonify(account_controller.delete_entity(account_id))
+
+
+
+
 #------------------------ LOANS ENDPOINTS ------------------------------    
 # Use this json to test the account endpoints using Postman
 #   "total" is a reserved key word so change it to "total_loan"
@@ -108,6 +151,7 @@ def update_loan(loan_id):
 @app.route('/loans/<loan_id>', methods = ["DELETE"])
 def delete_loan(loan_id):
     return jsonify(loan_controller.delete_entity(loan_id))
+
 
 
 #------------------------ HEDGES ENDPOINTS ------------------------------    
@@ -272,3 +316,9 @@ def delete_funding_rates_by_id(account_id):
 def delete_funding_rates():
     return jsonify(funding_rate_controller.delete_entities())
 
+
+
+#--------------------------- MAIN --------------------------------
+
+if __name__ == '__main__':
+    app.run()

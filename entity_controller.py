@@ -23,6 +23,7 @@ class EntityController:
             #Lazy load the table
             self.table = self.dynamodb.Table(self.TABLE_NAME) 
 
+
     def create_table(self, sample_data=None):
         """
         Create the DynamoDB table.
@@ -95,6 +96,7 @@ class EntityController:
             TableName=self.TABLE_NAME
         )
 
+
     def query_entities(self, query):
         """Return all entities that match the given query"""
 
@@ -105,6 +107,7 @@ class EntityController:
             return response['Items']
         else:
             return "No result found related to query " + query
+
 
     def get_entity(self, entity_id):
         """
@@ -126,6 +129,7 @@ class EntityController:
         else:
             return "Object with key " + entity_id + " does not exist in the " + self.TABLE_NAME + " db."
 
+
     def create_entity(self, new_entity):
         """
         Create a new entity from the json received.
@@ -138,6 +142,7 @@ class EntityController:
         return self.table.put_item(
             Item= new_entity
             )
+
 
     def update_entity(self, updated_entity):
         """
@@ -170,6 +175,7 @@ class EntityController:
             ExpressionAttributeValues=updated_values
         )
 
+
     def delete_entity(self, entity_id):
         """
         Delete an existing entity that matches the account_id given.
@@ -183,6 +189,7 @@ class EntityController:
                 self.PRIMARY_KEY: entity_id,
             }
         )
+
 
     def delete_entities(self):
         """
@@ -200,6 +207,7 @@ class EntityController:
                         self.PRIMARY_KEY: item[self.PRIMARY_KEY],
                     }
                 )
+
 
     def delete_selective_entities(self, query):
         """
@@ -223,6 +231,7 @@ class EntityController:
                     self.SORT_KEY: item[self.SORT_KEY],
                 }
             )
+
 
     def delete_table(self):
         """
