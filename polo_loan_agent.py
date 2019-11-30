@@ -24,6 +24,7 @@ class LoanAgent:
         if api is None:
             raise ValueError("Poloniex API client required.")
 
+        # Run as a daemon
         thread = Thread(
             target=lambda: self.run(),
             daemon=True)

@@ -33,10 +33,10 @@ class Account:
 
     # Lending platform API client
     LENDER_API = poloniex.Poloniex(
-        key='HHDRON6N-H7C3LA42-AXV8EMJI-LPLUQD2Y',
-        secret="c05289ca176fc5981118756accc84172a513609df14b8fa887"
-            "cf6cf980292f724efbacd5fcd925f810cfaf71c0edfff31a4d0cfc"
-            "1e41ea23a1a3cad1706d5c44")
+        key='',
+        secret=""
+            ""
+            "")
 
     HEDGE_REQUIRED = False
 
@@ -46,8 +46,8 @@ class Account:
     # Hedging platform API client
     HEDGE_API = bitmex.bitmex(
         test=False,
-        api_key='TsClPuXtKz8Yxtf5EPkNL0hV',
-        api_secret='fFDYVqQl59Uku_1u8HFOnHHIXz1Tq5IM0H4wQIumgh-vvfun')
+        api_key='',
+        api_secret='')
 
     def __init__(self, logger, account_id, duration=365, initial_deposit=100):
         self.logger = logger
