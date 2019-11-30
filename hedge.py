@@ -1,5 +1,15 @@
+from swagger_spec_validator.common import SwaggerValidationWarning
+from polo_loan_agent import LoanAgent
+import warnings
+import datetime
+import requests
+import poloniex
+import bitmex
+import json
+
+
 class Hedge:
-    """Hedge class models the hedge taken to mitigate loan volatility."""
+    """	Hedge class models the hedge taken to mitigate loan volatility."""
 
     """ Industry-standard monthly futures contract codes. The month code
         signifies contract delivery month e.g AUDJPYZ19 would be a contract

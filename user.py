@@ -1,6 +1,6 @@
 
 class User:
-    """User class models the customer (account holder)."""
+    """ User class models the customer (account holder)."""
 
     def __init__(self, user_id, fname, lname, email, pwd):
         self.user_id = user_id
