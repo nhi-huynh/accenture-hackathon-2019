@@ -224,4 +224,13 @@ class EntityController:
                 }
             )
 
+    def delete_table(self):
+        """
+        Delete the table from DynamoDb
+        Parameter: 
+            none
+        Return: 
+            delete message
+        """
+        return self.table.delete()
     
