@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+
 class Loan:
     """Loan class models the lending product utilised."""
 

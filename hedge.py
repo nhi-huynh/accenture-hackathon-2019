@@ -4,6 +4,7 @@ import requests
 import logging
 import json
 
+
 class Hedge:
     """Hedge class models the hedge taken to mitigate loan volatility."""
 
