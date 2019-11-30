@@ -147,7 +147,7 @@ class EntityController:
         Return:
             metadata of the PUT request
         """
-        
+
         updated_values = {}
         key_attributes = {}
         key_attributes[self.PRIMARY_KEY] = updated_entity[self.PRIMARY_KEY]
@@ -168,4 +168,18 @@ class EntityController:
             Key=key_attributes,
             UpdateExpression=command,      
             ExpressionAttributeValues=updated_values
+        )
+
+    def delete_entity(self, entity_id):
+        """
+        Delete an existing entity that matches the account_id given.
+        Parameter:
+            a string account_id
+        Return:
+            metadata of the DELETE request
+        """
+        return self.table.delete_item(
+            Key={
+                self.PRIMARY_KEY: entity_id,
+            }
         )
