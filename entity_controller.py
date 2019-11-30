@@ -103,3 +103,25 @@ class EntityController:
             return response['Items']
         else:
             return "No result found related to query " + query
+
+    def get_entity(self, entity_id):
+        """
+        Get a entity by entity_id
+        Parameter: 
+            a string entity_id
+        Return: 
+            the entity that matches the given entity_id
+        """
+
+        response = self.table.get_item(
+            Key={
+                self.PRIMARY_KEY: entity_id,
+            }
+        )
+        if 'Item' in response:
+            entity = response['Item']
+            return entity
+        else:
+            return "Object with key " + entity_id + " does not exist in the " + self.TABLE_NAME + " db."
+
+    
