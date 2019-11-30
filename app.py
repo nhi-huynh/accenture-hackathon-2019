@@ -208,3 +208,67 @@ def delete_net_interests_by_id(account_id):
 @app.route('/net_interests', methods=["DELETE"])
 def delete_net_interests():
     return jsonify(loan_interest_controller.delete_entities())
+
+
+
+#------------------------ LOAN INTERESTS ENDPOINTS ------------------------------    
+# Use this json to test the interests endpoints using Postman
+# {
+#     "timestamp": "2019-11-27 14:09:01.772253",
+#     "account_id": "A001",
+#     "loan_interest": "1000"
+# }
+# 
+
+@app.route('/loan_interests', methods=["GET"])
+def get_loan_interests():
+    return jsonify(loan_interest_controller.get_entities())
+
+@app.route('/loan_interests/<account_id>', methods=["GET"])
+def get_loan_interests_by_id(account_id):
+    return jsonify(loan_interest_controller.query_entities(account_id))
+
+@app.route('/loan_interests', methods=["POST"])
+def create_loan_interest():
+    return jsonify(loan_interest_controller.create_entity(request.json))
+
+@app.route('/loan_interests/<account_id>', methods=["DELETE"])
+def delete_loan_interests_by_id(account_id):
+    return jsonify(loan_interest_controller.delete_selective_entities(account_id))
+
+@app.route('/loan_interests', methods=["DELETE"])
+def delete_loan_interests():
+    return jsonify(loan_interest_controller.delete_entities())
+
+
+
+
+#------------------------ FUNDING RATE ENDPOINTS ------------------------------    
+# Use this json to test the funding_rates endpoints using Postman
+# {
+#     "timestamp": "2019-11-27 14:09:01.772253",
+#     "account_id": "A001",
+#     "funding_rate": "1000"
+# }
+# 
+
+@app.route('/funding_rates', methods=["GET"])
+def get_funding_rates():
+    return jsonify(funding_rate_controller.get_entities())
+
+@app.route('/funding_rates/<account_id>', methods=["GET"])
+def get_funding_rates_by_id(account_id):
+    return jsonify(funding_rate_controller.query_entities(account_id))
+
+@app.route('/funding_rates', methods=["POST"])
+def create_funding_rate():
+    return jsonify(funding_rate_controller.create_entity(request.json))
+
+@app.route('/funding_rates/<account_id>', methods=["DELETE"])
+def delete_funding_rates_by_id(account_id):
+    return jsonify(funding_rate_controller.delete_selective_entities(account_id))
+
+@app.route('/funding_rates', methods=["DELETE"])
+def delete_funding_rates():
+    return jsonify(funding_rate_controller.delete_entities())
+
