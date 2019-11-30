@@ -26,7 +26,7 @@ class Hedge:
         self.value = value
 
         # Fixed termination date of the hedge (and loan).
-        self.close_date = self.close_date(duration)
+        self.close_date = self.get_close_date(duration)
 
         # Use the perpetual swap contract as the default hedging instrument.
         self.default_instrument = "XBTUSD"
@@ -87,7 +87,7 @@ class Hedge:
         # Return transaction details json
         return order
 
-    def close_date(self, duration):
+    def get_close_date(self, duration):
         """Return the date [duration] days from now."""
 
         close = datetime.utcnow() + timedelta(days=10)

@@ -18,7 +18,7 @@ class Loan:
         self.current_interest_rate = 0
 
         # Date of termination of the loan
-        self.close_date = self.close_date(duration)
+        self.close_date = self.get_close_date(duration)
 
         # Loan agent runs in background in a new thread
         self.loan_agent = agent
@@ -57,7 +57,7 @@ class Loan:
         self.active = False
         print('Loan terminated. Allow 48hrs for all lending to cease.')
 
-    def close_date(self, duration):
+    def get_close_date(self, duration):
         """Return the date [duration] days from now."""
 
         close = datetime.utcnow() + timedelta(days=10)

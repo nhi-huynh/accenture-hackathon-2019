@@ -1,3 +1,13 @@
+from swagger_spec_validator.common import SwaggerValidationWarning
+from polo_loan_agent import LoanAgent
+import warnings
+import datetime
+import requests
+import poloniex
+import bitmex
+import json
+
+
 class Account:
     """ Account class models the hedged account concept, containing loan and
         hedge classes, and facilities to save and restore state to and from
@@ -91,7 +101,7 @@ class Account:
         # Hedge class for the hedge against our loaned asset.
         self.hedge = None
 
-    def open_account():
+    def open_account(): 
         """ Initiate the loan and hedge. This method must be invoked to start
             the account after the account objcet has been created.
         """
