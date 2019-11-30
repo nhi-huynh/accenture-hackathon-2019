@@ -124,4 +124,15 @@ class EntityController:
         else:
             return "Object with key " + entity_id + " does not exist in the " + self.TABLE_NAME + " db."
 
-    
+    def create_entity(self, new_entity):
+        """
+        Create a new entity from the json received.
+        Parameter: 
+            a dictionary of an entity.
+        Return: 
+            metadata of the PUT request
+        """
+
+        return self.table.put_item(
+            Item= new_entity
+            )
