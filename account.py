@@ -90,3 +90,54 @@ class Account:
 
         # Hedge class for the hedge against our loaned asset.
         self.hedge = None
+
+    def open_account():
+        """ Initiate the loan and hedge. This method must be invoked to start
+            the account after the account objcet has been created.
+        """
+
+        self.convert_currency()
+        self.loan = init_loan()
+        self.hedge = init_hedge()
+        
+
+    def init_loan(self):
+        """ Open a loan with third party lending platform. We use Poloniex
+            for this demo. Future versions can include integrations with
+            multiple platforms, and the ability to automatically select the
+            optimal (most stable and profitable) asset and lending provider.
+            Loan class has a LoanAgent which cancels old loan offers, turns
+            auto-renew off on active loans, and creates new loan offers at
+            fair price (fair = average of the lowest three loan offers).
+            """
+
+        return Loan(
+            self.LENDER_API,
+            self.logger,
+            self.LOAN_ASSET,
+            self.initial_deposit,
+            self.duration,
+            LoanAgent(
+                self.logger,
+                self.LENDER_API,
+                {self.LOAN_ASSET: self.MIN_LOAN},
+                self.initial_deposit))    
+
+
+    def get_lending_stats(self):
+        """ Return dict of loan stats, set current_interst_rate variable
+            whenever this is invoked to reduce # of external polling.
+        """
+
+        stats = self.loan.api.returnActiveLoans()['provided'][0]
+        self.current_interest_rate = float(stats['rate']) * 100
+        self.loan.current_interest_rate = float(stats['rate']) * 100
+        return stats
+
+    def get_hedge_stats(self):
+        """ Return a dict containing hedge stats."""
+
+        # use stats['currentQty'] to get the size of the positon
+        stats = self.hedge.api.Position.Position_get(
+            filter=json.dumps(
+                {'symbol': self.current_instrument})).result()[0][0]
