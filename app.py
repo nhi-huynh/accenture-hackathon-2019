@@ -178,3 +178,33 @@ def delete_balances_by_id(account_id):
 def delete_balances():
     return jsonify(balance_controller.delete_entities())
 
+
+
+#------------------------ NET INTERESTS ENDPOINTS ------------------------------    
+# Use this json to test the interests endpoints using Postman
+# {
+#     "timestamp": "2019-11-27 14:09:01.772253",
+#     "account_id": "A001",
+#     "net_interest": "10"
+# }
+# 
+
+@app.route('/net_interests', methods=["GET"])
+def get_net_interests():
+    return jsonify(loan_interest_controller.get_entities())
+
+@app.route('/net_interests/<account_id>', methods=["GET"])
+def get_net_interests_by_id(account_id):
+    return jsonify(loan_interest_controller.query_entities(account_id))
+
+@app.route('/net_interests', methods=["POST"])
+def create_net_interest():
+    return jsonify(loan_interest_controller.create_entity(request.json))
+
+@app.route('/net_interests/<account_id>', methods=["DELETE"])
+def delete_net_interests_by_id(account_id):
+    return jsonify(loan_interest_controller.delete_selective_entities(account_id))
+
+@app.route('/net_interests', methods=["DELETE"])
+def delete_net_interests():
+    return jsonify(loan_interest_controller.delete_entities())
