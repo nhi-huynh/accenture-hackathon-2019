@@ -1,7 +1,9 @@
-class Loan:
-    """ Loan class models the lending product utilised."""
+from datetime import datetime, timedelta
 
-    def __init__(self, api, logger, asset, deposit, duration, agent):
+class Loan:
+    """Loan class models the lending product utilised."""
+
+    def __init__(self, logger, api, asset, deposit, duration, agent):
         self.api = api
         self.logger = logger
 
@@ -44,7 +46,7 @@ class Loan:
         interest payouts."""
 
         self.loan_agent.update_loan(new_loan_size)
-        print('Loan size updated. Allow 48hrs for changes to propagate.').
+        print('Loan size updated. Allow 48hrs for changes to propagate.')
 
     def get_interest_history(self):
         """Return dict containing interest payout history."""
@@ -53,7 +55,7 @@ class Loan:
         """Stop the loan agent from renewing loans and offers, may take max 48
         hrs to garuantee all loans are closed."""
 
-        self.loan_agent.active = false
+        self.loan_agent.active = False
         self.active = False
         print('Loan terminated. Allow 48hrs for all lending to cease.')
 
