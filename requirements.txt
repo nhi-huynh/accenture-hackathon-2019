@@ -41,7 +41,7 @@ strict-rfc3339==0.7
 swagger-spec-validator==2.4.3
 typed-ast==1.4.0
 typing-extensions==3.7.4.1
-urllib3==1.25.7
+urllib3==1.26.5
 webcolors==1.10
 websocket-client==0.56.0
 Werkzeug==0.16.0
