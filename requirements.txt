@@ -5,7 +5,7 @@ boto3==1.10.26
 botocore==1.13.28
 bravado==10.4.3
 bravado-core==5.16.0
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 colorama==0.4.1
